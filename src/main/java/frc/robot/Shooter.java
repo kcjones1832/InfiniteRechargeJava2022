@@ -80,4 +80,26 @@ public class Shooter {
             feederMotor.set(0);
         }
     }
+
+    double velocityAct;
+
+    void shootAuto(boolean doShoot) {
+        shootMotor.set((88000 * 1.0) / -120000.0);
+    
+        velocityAct = -shootMotor.getSensorCollection().getQuadratureVelocity();
+        if (velocityAct > 89000 && doShoot) {
+            feederMotor.set(-0.8);
+        }
+        else {
+            feederMotor.set(0);
+        }
+    
+        SmartDashboard.putNumber("shooter velocity", shootMotor.getSensorCollection().getQuadratureVelocity());
+    }
+    
+    void stopShoot() {
+        shootMotor.set(0);
+        feederMotor.set(0);
+        Robot.autoStep++;
+    }
 }

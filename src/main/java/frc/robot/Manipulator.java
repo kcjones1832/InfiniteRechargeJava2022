@@ -97,4 +97,30 @@ public class Manipulator {
         SmartDashboard.putNumber("intake rotate temp", intakeRotateMotor.getMotorTemperature());
         SmartDashboard.putNumber("rotate control mode", rotateControlMode);
     }
+
+    void intakeStartup() {
+
+        rotatePosition = intakeRotateMotor.getEncoder().getPosition();
+        if (rotatePosition < 42 && rotatePosition > 22) { //replace 0 with desired location
+          intakeRotateMotor.set(-0.00005);
+        }
+        else if (rotatePosition > -1 && rotatePosition < 15) {
+          intakeRotateMotor.set(0.08);
+        }
+        else if (rotatePosition < 20) {
+          intakeRotateMotor.set(-0.000);
+        }
+        else {
+          intakeRotateMotor.set(0);
+        }
+    
+        if (rotatePosition > 42) {
+          Robot.autoStep++;
+        }
+    
+        //frc::SmartDashboard::PutNumber("intake rotate encoder", intakeRotateMotor->GetEncoder().GetPosition());
+      //frc::SmartDashboard::PutNumber("intake rotate power", intakeRotateMotor->Get());
+      //frc::SmartDashboard::PutNumber("intake rotate current", intakeRotateMotor->GetOutputCurrent());
+      //frc::SmartDashboard::PutNumber("intake rotate temp", intakeRotateMotor->GetMotorTemperature());
+    }
 }
